@@ -19,7 +19,7 @@ class Frame {
 		Frame(int width, int height, Color bc){
 			this->width = width;
 			this->height = height;
-			this->baseColor = bc
+			this->baseColor = bc;
 			
 			screen = new Color*[this->height];
 			for(int i = 0; i < this->height; ++i) {
@@ -58,15 +58,15 @@ class Frame {
 		}
 		
 		void setRColor(int x, int y, unsigned char r){
-			screen[x][y].setRValue(r);
+			screen[x][y].setR(r);
 		}
 		
 		void setGColor(int x, int y, unsigned char g){
-			screen[x][y].setGValue(g);
+			screen[x][y].setG(g);
 		}
 		
 		void setBColor(int x, int y, unsigned char b){
-			screen[x][y].setBValue(b);
+			screen[x][y].setB(b);
 		}
 		
 		void setColor(int x, int y, Color color){

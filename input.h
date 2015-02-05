@@ -2,6 +2,7 @@
 #define INPUT_H
 
 #include "coordinate.h"
+#include <stdio.h>
 
 using namespace std;
 
@@ -29,12 +30,12 @@ class Input {
 
 			if (coordinate.getY() < 0) {
 				coordinate.setY(0);
-				nextCursorCoordinate.setY(0)
+				nextCursorCoordinate.setY(0);
 			} else if (coordinate.getY() >= screenY*mouseSensitivity) {
 				coordinate.setY(screenY*mouseSensitivity-1);
 				nextCursorCoordinate.setY(screenY-1);
 			} else {
-				nextCursorCoordinate((int) cursorCoordinate.getY() / mouseSensitivity);
+				nextCursorCoordinate.setY((int) cursorCoordinate.getY() / mouseSensitivity);
 			}
 
 			return nextCursorCoordinate;
@@ -59,8 +60,8 @@ class Input {
 			fread(mouseRaw,sizeof(char),3,fmouse);
 			
 			Coordinate mouse;
-			mouse.setCoordinate(cursorCoordinate.getX() + mouseRaw[1]);
-			mouse.setCoordinate(cursorCoordinate.getY() - mouseRaw[2]);
+			mouse.setX(cursorCoordinate.getX() + mouseRaw[1]);
+			mouse.setY(cursorCoordinate.getY() - mouseRaw[2]);
 			
 			return getCursorCoordinate(mouse);
 		}

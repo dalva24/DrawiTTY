@@ -2,7 +2,7 @@
 #define CONTROLLER_H
 
 #include "input.h"
-#include "frames.h"
+#include "frame.h"
 #include "coordinate.h"
 #include "color.h"
 #include "framebuffer.h"
@@ -28,9 +28,9 @@ class Controller {
 		void insertPixel(Coordinate location, Color color) {
 			// do bounding check:
 			if (!(location.getX() >= screenWidth || location.getX() < 0 || location.getY() >= screenHeight || location.getY() < 0)) {
-				compositionFrame.setRColor(location.getX(), location.getY(), color.getRValue());
-				compositionFrame.setGColor(location.getX(), location.getY(), color.getGValue());
-				compositionFrame.setBColor(location.getX(), location.getY(), color.getBValue());
+				compositionFrame.setR(location.getX(), location.getY(), color.getR());
+				compositionFrame.setG(location.getX(), location.getY(), color.getG());
+				compositionFrame.setB(location.getX(), location.getY(), color.getB());
 			}
 		}
 
@@ -68,9 +68,9 @@ class Controller {
 			for (y=0; y<screenHeight y++) {
 				for (x=screenXstart; x<screenWidth; x++) {
 					int location = x * (fb->bpp/8) + y * fb->lineLen;
-					*(fb->ptr + location    ) = compositionFrame.getColor(x, y).getRValue(); // blue
-					*(fb->ptr + location + 1) = compositionFrame.getColor(x, y).getGValue(); // green
-					*(fb->ptr + location + 2) = compositionFrame.getColor(x, y).getBValue(); // red
+					*(fb->ptr + location    ) = compositionFrame.getColor(x, y).getR(); // blue
+					*(fb->ptr + location + 1) = compositionFrame.getColor(x, y).getG(); // green
+					*(fb->ptr + location + 2) = compositionFrame.getColor(x, y).getB(); // red
 					*(fb->ptr + location + 3) = 255; // transparency
 				}
 			}
