@@ -5,6 +5,12 @@
 #include <math.h>
 #include <stdlib.h>
 #include "frame.h"
+#include "color.h"
+#include "controller.h"
+#include "coordinate.h"
+#include "framebuffer.h"
+#include "input.h"
+#include "line.h"
 
 using namespace std;
 

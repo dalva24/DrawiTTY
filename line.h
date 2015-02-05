@@ -5,37 +5,37 @@
 
 class Line {
 	private:
-		Coordinate initialCoordinate;
-		Coordinate destinationCoordinate;
+		Coordinate C1;
+		Coordinate C2;
 
 	public:
 		Line(){
 
 		}
 
-		Line(int x0, int y0, int x1, int y1) : initialCoordinate(x0, y0), destinationCoordinate(x1, y1){
+		Line(int x0, int y0, int x1, int y1) : C1(x0, y0), C2(x1, y1){
 
 		}
 
-		Coordinate getInitialCoordinate(){
-			return initialCoordinate;
+		Coordinate getInitial(){
+			return C1;
 		}
 
-		Coordinate getDestinationCoordinate(){
-			return destinationCoordinate;
+		Coordinate getFinal(){
+			return C2;
 		}
 
-		void setInitialCoordinate(int x, int y){
-			initialCoordinate.setCoordinate(x, y);
+		void setInitial(int x, int y){
+			C1.setCoordinate(x, y);
 		}
 
-		void setDestinationCoordinate(int x, int y){
-			destinationCoordinate.setCoordinate(x, y);
+		void setFinal(int x, int y){
+			C2.setCoordinate(x, y);
 		}
 
 		void setLine(int x0, int y0, int x1, int y1){
-			initialCoordinate.setCoordinate(x0, y0);
-			destinationCoordinate.setCoordinate(x1, y1);
+			C1.setCoordinate(x0, y0);
+			C2.setCoordinate(x1, y1);
 		}
 
 

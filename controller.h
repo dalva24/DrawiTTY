@@ -24,15 +24,6 @@ class Controller {
 		}
 		
 	private:
-		void flushFrame (Color color) {
-			int x;
-			int y;
-			for (y=0; y < screenHeight; y++) {
-				for (x=0; x<screenWidth; x++) {
-					compositionFrame.setAllColor(x, y, color);
-				}
-			}
-		}	
 
 		void insertPixel(Coordinate location, Color color) {
 			// do bounding check:

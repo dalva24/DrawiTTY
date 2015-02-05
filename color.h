@@ -20,57 +20,58 @@ class Color {
 			b = 0;
 		}
 
-		unsigned char getRValue(){
+		unsigned char getR(){
 			return r;
 		}
 
-		unsigned char getGValue(){
+		unsigned char getG(){
 			return g;
 		}
 
-		unsigned char getBValue(){
+		unsigned char getB(){
 			return b;
 		}
 
-		void setRValue(unsigned char r){
+		void setR(unsigned char r){
 			this->r = r;
 		}
 
-		void setGValue(unsigned char g){
+		void setG(unsigned char g){
 			this->g = g;
 		}
 
-		void setBValue(unsigned char b){
+		void setB(unsigned char b){
 			this->b = b;
 		}
 
 		void setColor(Color color){
-			this->r = color.getRValue();
-			this->g = color.getGValue();
-			this->b = color.getBValue();
+			this->r = color.getR();
+			this->g = color.getG();
+			this->b = color.getB();
 		}
 
-		void multiply(Color bottomColorValue, Color topColorValue){
-			this->r = topColorValue.r * bottomColorValue.r / 255;
-			this->g = topColorValue.g * bottomColorValue.g / 255;
-			this->b = topColorValue.b * bottomColorValue.b / 255;
+		void multiply(Color color1, Color color2){
+			this->r = color2.r * color1.r / 255;
+			this->g = color2.g * color1.g / 255;
+			this->b = color2.b * color1.b / 255;
 		}
 
-		void darken(Color bottomColorValue, Color topColorValue){
-			if(topColorValue.r > bottomColorValue.r)
-				this->r = bottomColorValue.r;
+		//TODO: change to "screen"
+		void darken(Color color1, Color color2){
+			if(color2.r > color1.r)
+				this->r = color1.r;
 			else
-				this->r = topColorValue.r;
+				this->r = color2.r;
 
-			if(topColorValue.g > bottomColorValue.g)
-				this->g = bottomColorValue.g;
+			if(color2.g > color1.g)
+				this->g = color1.g;
 			else
-				this->g = topColorValue.g;
+				this->g = color2.g;
 
-			if(topColorValue.b > bottomColorValue.b)
-				this->b = bottomColorValue.b;
+			if(color2.b > color1.b)
+				this->b = color1.b;
 			else
-				this->b = topColorValue.b;
+				this->b = color2.b;
 		}
 
 };
