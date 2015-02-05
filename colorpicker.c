@@ -55,24 +55,7 @@ typedef struct s_frameBuffer {
 	int bpp;
 } FrameBuffer;
 
-/* TERMINAL STUFF ------------------------------------------------------ */
 
-//keyboard hook related stuff... dunno what it does
-static struct termios old, new1;
-
-/* init terminal settings */
-void initTermios(int echo) {
-    tcgetattr(0, &old); /* grab old terminal i/o settings */
-    new1 = old; /* make new settings same as old settings */
-    new1.c_lflag &= ~ICANON; /* disable buffered i/o */
-    new1.c_lflag &= echo ? ECHO : ~ECHO; /* set echo mode */
-    tcsetattr(0, TCSANOW, &new1); /* use these new terminal i/o settings now */
-}
-
-/* Restore old terminal i/o settings */
-void resetTermios(void) {
-    tcsetattr(0, TCSANOW, &old);
-}
 
 /* MATH STUFF ---------------------------------------------------------- */
 
@@ -179,6 +162,7 @@ void insertSprite(Frame* frm, Coord loc, unsigned short type) {
 	}	
 }
 
+/*
 // Hue Selector
 void showHueSelector(Frame* frm, Coord loc, unsigned short hueLoc) {
 	int x,y;
@@ -339,7 +323,9 @@ void showSelectedColor(Frame* frm, Coord loc, RGB color) {
 		insertPixel(frm, coord(loc.x+x, loc.y+50), rgb(255,255,255));
 	}
 }
+*/
 
+/*
 //show canvas
 void showCanvas(Frame* frm, Frame* cnvs, Coord loc) {
 	int x, y;
@@ -369,7 +355,9 @@ void addBlob(Frame* cnvs, Coord loc, RGB color) {
 		}
 	}
 }
+*/
 
+/*
 //get RGB from HSL
 RGB getColorValue(unsigned short hue, unsigned char saturation, unsigned char luminosity){
 	RGB curH;
@@ -404,6 +392,7 @@ RGB getColorValue(unsigned short hue, unsigned char saturation, unsigned char lu
 	
 	return curHSL;
 }
+*/
 
 // delete contents of composition frame
 void flushFrame (Frame* frm, RGB color) {
@@ -474,31 +463,29 @@ int main() {
 	mouse.x = 0;
 	mouse.y = 0;
 	
-	//prepare keyboard controller
-	setvbuf (stdout, NULL, _IONBF, 0); // disable output buffer
-	initTermios(0);
-	char charIn;
+	
 	
 	//prepare environment controller
 	unsigned char loop = 1; // frame loop controller
 	Frame cFrame; // composition frame (Video RAM)
 	Frame canvas; // persistence canvas frame
 	flushFrame(&canvas, rgb(255,255,255)); // prepare canvas
-	unsigned short hue = 0; //the hue location, 0..768
-	unsigned char sat = 0; //saturation, 0..255
-	unsigned char lum = 0; //luminosity, 0..255
-	RGB colorValue;
-	float trigonoLen;
+	//unsigned short hue = 0; //the hue location, 0..768
+	//unsigned char sat = 0; //saturation, 0..255
+	//unsigned char lum = 0; //luminosity, 0..255
+	//RGB colorValue;
+	//float trigonoLen;
 	int i; //for drawing.
 	
 	/* Main Loop ------------------------------------------------------- */
 	while (loop) {
 		//calc color value
-		colorValue = getColorValue(hue, sat, lum);
+		//colorValue = getColorValue(hue, sat, lum);
 		
 		//clean
 		flushFrame(&cFrame, rgb(0,0,0));
 		
+		/*
 		//hue selector
 		showHueSelector(&cFrame, coord(299,50), hue);
 			
@@ -510,7 +497,8 @@ int main() {
 		
 		//show canvas
 		showCanvas(&cFrame, &canvas, coord(580,120));
-		
+		*/
+
 		//fill mouse LAST
 		insertSprite(&cFrame, getCursorCoord(&mouse), 1);
 		
@@ -522,7 +510,8 @@ int main() {
 		mouse.x += mouseRaw[1];
 		mouse.y -= mouseRaw[2];
         
-        if ((mouseRaw[0]&1)>0) { //if Lbutton press
+        
+        /*if ((mouseRaw[0]&1)>0) { //if Lbutton press
 			
 			//in hue selector
 			if (isInBound(getCursorCoord(&mouse),coord(299,50), coord(1066,100))) {
@@ -544,14 +533,14 @@ int main() {
 					addBlob(&canvas, coord(getCursorCoord(&mouse).x-580-(mouseRaw[1]*i/trigonoLen), getCursorCoord(&mouse).y-120+(mouseRaw[2]*i/trigonoLen)), colorValue);
 				}
 			}
-		}
+		}*/
 	}
 
 	/* Cleanup --------------------------------------------------------- */
 	munmap(fb.ptr, sInfo.smem_len);
 	close(fbFile);
 	fclose(fmouse);
-	resetTermios();
+	//resetTermios();
 	return 0;
 }
 
